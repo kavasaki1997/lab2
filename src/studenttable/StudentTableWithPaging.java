@@ -57,7 +57,7 @@ public class StudentTableWithPaging extends JComponent {
         for (int y = lineInHeaderTable, student = firstStudentOnPage;
              y < studentOnPage + lineInHeaderTable && student < students.size();
              y++, student++) {
-            tableModel.setMaxNumberSemestr(students.get(student).getExaminations().size());
+            tableModel.setMaxNumberSemestr(students.get(student).getOpshchRobota().size());
             for (int i = 0; i < 10 * 2 + 2; i++) {
                 String write = getFieldForStudent(students.get(student), i);
                 AddComponent.add(table, write, i, y, 1, 1);
@@ -67,7 +67,7 @@ public class StudentTableWithPaging extends JComponent {
     }
 
     private JPanel makeToolsPanel() {
-        int numberExaminations = tableModel.getNumberSemestr();
+
         List<Student> students = tableModel.getStudents();
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
@@ -141,12 +141,12 @@ public class StudentTableWithPaging extends JComponent {
         else {
             int numberExamination = (i - 2) / 2;
             if (i % 2 == 0) {
-                if (numberExamination < student.getExaminations().size()) {
-                    return student.getExaminations().get(numberExamination).getExaminationName();
+                if (numberExamination < student.getOpshchRobota().size()) {
+                    return student.getOpshchRobota().get(numberExamination).getOpshchRabotaName();
                 } else return " - ";
             } else {
-                if (numberExamination < student.getExaminations().size()) {
-                    return student.getExaminations().get(numberExamination).getExaminationMark();
+                if (numberExamination < student.getOpshchRobota().size()) {
+                    return student.getOpshchRobota().get(numberExamination).getOpshchRabotaMap();
                 } else return " - ";
             }
         }

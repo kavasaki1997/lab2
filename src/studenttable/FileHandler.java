@@ -58,10 +58,10 @@ public class FileHandler {
                     writer.writeAttribute(FIRST_NAME, student.getFirstName());
                     writer.writeAttribute(MIDDLE_NAME, student.getMiddleName());
                     writer.writeAttribute(GROUP, student.getNumberGroup());
-                    for (Examination exam : student.getExaminations()) {
+                    for (OpshchRab exam : student.getOpshchRobota()) {
                         writer.writeStartElement(EXAM);
-                        writer.writeAttribute(NAME, exam.getExaminationName());
-                        writer.writeCharacters(exam.getExaminationMark());
+                        writer.writeAttribute(NAME, exam.getOpshchRabotaName());
+                        writer.writeCharacters(exam.getOpshchRabotaMap());
                         writer.writeEndElement();
                     }
                     writer.writeEndElement();
@@ -86,14 +86,14 @@ public class FileHandler {
             String group = "";
             String numberExam = "";
             tableModel.getStudents().clear();
-            List<Examination> exams = new ArrayList<Examination>();
+            List<OpshchRab> exams = new ArrayList<OpshchRab>();
             XMLStreamReader xmlr = XMLInputFactory.newInstance()
                     .createXMLStreamReader(fileName, new FileInputStream(fileName));
             while (xmlr.hasNext()) {
                 xmlr.next();
                 if (xmlr.isStartElement()) {
                     if (xmlr.getLocalName().equals(STUDENT)){
-                        exams = new ArrayList<Examination>();
+                        exams = new ArrayList<OpshchRab>();
                         lastName = xmlr.getAttributeValue(null, LAST_NAME);
                         firstName = xmlr.getAttributeValue(null, FIRST_NAME);
                         middleName = xmlr.getAttributeValue(null, MIDDLE_NAME);
@@ -103,7 +103,7 @@ public class FileHandler {
                         name = xmlr.getAttributeValue(null, NAME);
                         xmlr.next();
                         mark = xmlr.getText();
-                        exams.add(new Examination(name, Integer.parseInt(mark)));
+                        exams.add(new OpshchRab(name, Integer.parseInt(mark)));
                     } else if (xmlr.getLocalName().equals(NUMBER_EXAM)){
                         xmlr.next();
                         numberExam = xmlr.getText();

@@ -17,11 +17,12 @@ public class AddDialog {
     private StudentTableWithPaging studentTableWithPaging;
     private TableModel tableModel;
     private Map<String, JTextField> fieldID = new HashMap<String, JTextField>();
-    private Map<JTextField, JComboBox> examinationsMap = new HashMap<JTextField, JComboBox>();
+    private Map<JTextField, JComboBox> opshchRabotaMap = new HashMap<JTextField, JComboBox>();
 
     public AddDialog(StudentTableWithPaging studentTableWithPaging) {
         this.studentTableWithPaging = studentTableWithPaging;
         tableModel = studentTableWithPaging.getTableModel();
+
         JFrame frame = createFrame();
         frame.pack();
         frame.setLocationRelativeTo(studentTableWithPaging);
@@ -58,7 +59,7 @@ public class AddDialog {
         for (int exam = 0; exam < 10; exam++) {
             JTextField jtfName = new JTextField(30);
             JComboBox jcbMark = new JComboBox(markString);
-            examinationsMap.put(jtfName, jcbMark);
+             opshchRabotaMap.put(jtfName, jcbMark);
             AddComponent.add(jPanelID, jtfName, 0, exam + 7, 1, 1);
             AddComponent.add(jPanelID, jcbMark, 1, exam + 7, 2, 1);
         }
@@ -78,12 +79,12 @@ public class AddDialog {
             JOptionPane.showMessageDialog
                     (null, "Not correct student information", "ERROR", JOptionPane.ERROR_MESSAGE);
         } else {
-            List<Examination> examinations = new ArrayList<>();
-            for (Map.Entry exam : examinationsMap.entrySet()) {
+            List<OpshchRab> opshchRabs = new ArrayList<>();
+            for (Map.Entry exam :  opshchRabotaMap.entrySet()) {
                 JTextField name = (JTextField) exam.getKey();
                 JComboBox mark = (JComboBox) exam.getValue();
                 if (!name.getText().equals("")) {
-                    examinations.add(new Examination(name.getText(),
+                    opshchRabs.add(new OpshchRab(name.getText(),
                             Integer.parseInt((String) mark.getSelectedItem())));
                 }
             }
@@ -91,7 +92,7 @@ public class AddDialog {
                     getTextID(FIRST_NAME),
                     getTextID(MIDDLE_NAME),
                     getTextID(GROUP),
-                    examinations));
+                    opshchRabs));
             studentTableWithPaging.updateComponent();
         }
     }
@@ -116,7 +117,7 @@ public class AddDialog {
     }
 
     private boolean isNotCorrectExaminations() {
-        for (Map.Entry exam : examinationsMap.entrySet()) {
+        for (Map.Entry exam :  opshchRabotaMap.entrySet()) {
             JTextField name = (JTextField) exam.getKey();
             JComboBox mark = (JComboBox) exam.getValue();
             if (isNotCorrectExamination(name.getText(), (String) mark.getSelectedItem())) return true;
